@@ -1,3 +1,8 @@
+<p> gambaran konsep </p>
+
+![Konsep](konsep.png)
+
+
 <p> upload file docker-compose dan jalankan </p>
 
 ```
