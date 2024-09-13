@@ -1,3 +1,5 @@
+![Konsep](konsep.png)
+
 # jalankan docker-compose up -d
 
 ````
