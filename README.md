@@ -1,65 +1,74 @@
-![Konsep](konsep.png)
+<p> upload file docker-compose dan jalankan </p>
 
-# jalankan docker-compose up -d
-
-````
+```
 docker-compose up -d
-````
-# masuk ke console postgres-1 
+```
+<p> masuk ke console postgres-1 </p>
 
 ```
 docker exec -it postgres-1 bash
-``
+```
 
-# buat akun baru di dalam container postgres-1 dengan nama replicationUser:
+<p> buat akun baru di dalam container postgres-1 dengan nama replicationUser: </p>
+
 ```
 createuser -U postgresadmin -P -c 5 --replication replicationUser
 
 exit
 ```
 
-# list network yang ada
+<p> list network yang ada </p>
+```
 docker network ls
-## cek network yang digunakan oleh container postgres-1 dan postgres-2 
+```
+<p> cek network yang digunakan oleh container postgres-1 dan postgres-2 </p>
 ```
 docker network inspect postgres-replikasi-sami_postgres
-## buat backup, 
+```
+
+<p> buat backup </p>
+```
 docker run -it --rm `
 --net postgres-replikasi-sami_postgres `
 -v ${PWD}/postgres-2/pgdata:/data `
 --entrypoint /bin/bash postgres:15.0
+```` 
 
-
-# catatan : --net postgres-replikasi-sami_postgres ` adalah network yang digunakan oleh container postgres-1 dan postgres-2
-
-
+<p> catatan : --net postgres-replikasi-sami_postgres ` adalah network yang digunakan oleh container postgres-1 dan postgres-2 </p>
+```
 pg_basebackup -h postgres-1 -p 5432 -U replicationUser -D /data/ -Fp -Xs -R
-# jika terjadi error "pg_basebackup: error: directory "/data/" exists but is not empt" maka hapus folder data terlebih dahulu
-# dengan melakukan perintah rm -rf /data/*
+``
 
+<p> jika terjadi error "pg_basebackup: error: directory "/data/" exists but is not empt" maka hapus folder data terlebih dahulu </p>
+<p> dengan melakukan perintah rm -rf /data/* </p>
 
-# lakukan tes replikasi 
-# masuk ke dalam container postgres-1
+<p> lakukan tes replikasi </p>
+<p> masuk ke dalam container postgres-1 </p>
+```
 docker exec -it postgres-1 bash
-
-# masuk ke dalam database
-psql --username=postgresadmin postgresdb
-
-# buat table
-CREATE TABLE customers (firstname text, customer_id serial, date_created timestamp);
-
-#tampilkan the table
-\dt
 ```
 
+<p> masuk ke dalam database </p>
+```
+psql --username=postgresadmin postgresdb
+```
+<p> buat table </p>
+````
+CREATE TABLE customers (firstname text, customer_id serial, date_created timestamp);
+```` 
+<p>tampilkan the table </p>
+```
+\dt
+```
 docker exec -it postgres-2 bash
 
-# login to postgres
+<p> login to postgres </p>
+````
 psql --username=postgresadmin postgresdb
-
-#tampilkan the tables
+```
+<p> tampilkan the tables </p>
+``
 \dt
 ```
-
-# setelah berhasil melakukan replikasi, maka kita bisa melakukan testing dengan melakukan insert data ke dalam table customers di dalam container postgres-1, dan data tersebut akan otomatis ter-replikasi ke dalam container postgres-2
-# semoga bermafaat 
+<p> tralala </p>
+<p> semoga bermafaat 
