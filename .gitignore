@@ -1,0 +1,4 @@
+/postgres-2/pgdata/*
+/postgres-2/archive/*
+/postgres-1/pgdata/*
+/postgres-1/archive/*

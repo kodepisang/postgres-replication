@@ -1,0 +1,39 @@
+services:
+  postgres-1:
+    image: postgres:15.0
+    container_name: postgres-1
+    networks:
+      - postgres
+    environment:
+      - POSTGRES_USER=postgresadmin
+      - POSTGRES_PASSWORD=admin123
+      - POSTGRES_DB=postgresdb
+      - PGDATA=/data
+    volumes:
+      - ./postgres-1/pgdata:/data
+      - ./postgres-1/config:/config
+      - ./postgres-1/archive:/mnt/server/archive
+    ports:
+      - 5000:5432
+    command: -c 'config_file=/config/postgresql.conf'
+
+  postgres-2:
+    image: postgres:15.0
+    container_name: postgres-2
+    networks:
+      - postgres
+    environment:
+      - POSTGRES_USER=postgresadmin
+      - POSTGRES_PASSWORD=admin123
+      - POSTGRES_DB=postgresdb
+      - PGDATA=/data
+    volumes:
+      - ./postgres-2/pgdata:/data
+      - ./postgres-2/config:/config
+      - ./postgres-2/archive:/mnt/server/archive
+    ports:
+      - 5001:5432
+    command: -c 'config_file=/config/postgresql.conf'
+
+networks:
+  postgres:
