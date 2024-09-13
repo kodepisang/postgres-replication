@@ -18,10 +18,10 @@ exit
 
 # list network yang ada
 docker network ls
-## cek network yang digunakan oleh container postgres-1 dan postgres-2 
+# cek network yang digunakan oleh container postgres-1 dan postgres-2 
 ```
 docker network inspect postgres-replikasi-sami_postgres
-## buat backup, 
+# buat backup, 
 docker run -it --rm `
 --net postgres-replikasi-sami_postgres `
 -v ${PWD}/postgres-2/pgdata:/data `
@@ -32,9 +32,9 @@ docker run -it --rm `
 
 
 pg_basebackup -h postgres-1 -p 5432 -U replicationUser -D /data/ -Fp -Xs -R
+
 # jika terjadi error "pg_basebackup: error: directory "/data/" exists but is not empt" maka hapus folder data terlebih dahulu
 # dengan melakukan perintah rm -rf /data/*
-
 
 # lakukan tes replikasi 
 # masuk ke dalam container postgres-1
@@ -49,13 +49,12 @@ CREATE TABLE customers (firstname text, customer_id serial, date_created timesta
 #tampilkan the table
 \dt
 ```
-
 docker exec -it postgres-2 bash
 
 # login to postgres
 psql --username=postgresadmin postgresdb
 
-#tampilkan the tables
+# tampilkan the tables
 \dt
 ```
 
